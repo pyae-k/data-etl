@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+    (function() {
+      document.documentElement.setAttribute("data-theme", "light");
+    })();
+  </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
+    <meta name="title" content="ETL Studio — Free Browser-Based Data Preparation Tool | Pyae Phyo Kyaw" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ETL Studio" />
+    <meta name="description" content="ETL Studio — free, browser-based ETL tool for data cleaning and transformation. Powered by DuckDB WASM. 100% private — your data never leaves your device. No account needed." />
+    <meta name="keywords" content="ETL Studio, ETL, data cleaning, data transformation, ETL tool, DuckDB, browser ETL, free ETL tool, privacy-first, open source" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://pyaek.com/apps/etl/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pyaek.com/apps/etl/" />
+    <meta property="og:title" content="ETL Studio — Free Browser-Based Data Preparation Tool" />
+    <meta property="og:description" content="Clean, filter, and transform your data in the browser with DuckDB WASM. 100% private — your data never leaves your device. No account or upload needed." />
+    <meta property="og:site_name" content="Pyae Phyo Kyaw" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://pyaek.com/apps/etl/" />
+    <meta name="twitter:title" content="ETL Studio — Free Browser-Based Data Preparation Tool" />
+    <meta name="twitter:description" content="Clean, filter, and transform your data in the browser with DuckDB WASM. 100% private — no upload needed." />
+    <meta name="twitter:creator" content="@pyaek" />
+    <meta property="og:image" content="https://pyaek.com/assets/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="ETL Studio — Free Browser-Based Data Preparation Tool" />
+    <meta name="twitter:image" content="https://pyaek.com/assets/images/og-image.png" />
+    <meta name="twitter:image:alt" content="ETL Studio — Free Browser-Based Data Preparation Tool" />
+    <meta name="author" content="Pyae Phyo Kyaw" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    
+    <title>ETL Studio — Free Browser-Based Data Preparation Tool | Pyae Phyo Kyaw</title>
+    <link rel="icon" href="./assets/icons/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" />
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ETL Studio",
+        "url": "https://pyaek.com/apps/etl/",
+        "description": "Clean, filter, and transform your data in the browser with DuckDB WASM. 100% private — your data never leaves your device.",
+        "applicationCategory": "Data Tool",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Pyae Phyo Kyaw",
+            "url": "https://pyaek.com"
+        }
+    }
+    </script>
+
+    <!--
+      Base-path detection (ported from pwa_duckdb/config.js). Runs as a classic
+      script before the module so that the same build works at any deploy path,
+      including GitHub Pages subpaths like /<repo>/. Sets window.__APP_BASE__ and
+      injects a <base> tag so relative asset URLs resolve correctly. Skipped on
+      file:// (Safari breaks relative scripts under <base> on file:).
+    -->
+    <script>
+      (function () {
+        try {
+          var l = window.location;
+          var override = window.__APP_BASE_OVERRIDE__;
+          var base = override
+            ? override
+            : l.protocol === "file:"
+            ? l.href.replace(/[^/]*$/, "")
+            : l.pathname && l.pathname !== "/"
+            ? l.pathname.replace(/[^/]*$/, "") || "/"
+            : "/";
+          if (!base.endsWith("/")) base += "/";
+          window.__APP_BASE__ = base;
+          if (l.protocol !== "file:") {
+            var b = document.createElement("base");
+            b.href = base;
+            document.head.appendChild(b);
+          }
+        } catch (e) {
+          window.__APP_BASE__ = "/";
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-BvRwzFpT.js?v=5"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DOyH40zM.css?v=2">
+    <link rel="stylesheet" href="./assets/css/steps.css?v=6">
+    <link rel="stylesheet" href="./assets/css/root/style.css">
+    <script type="module" src="./assets/js/table-layout.js?v=3"></script>
+    <script type="module" src="./assets/js/diff-table.js?v=2"></script>
+    <link rel="stylesheet" href="./assets/css/diff-table.css?v=7">
+    <link rel="stylesheet" href="./assets/css/table-layout.css?v=2">
+    <script type="module" src="./assets/js/export-menu.js?v=3"></script>
+    <link rel="stylesheet" href="./assets/css/ai-sql-assistant.css?v=3">
+    <script type="module" src="./assets/js/ai-sql-assistant.js?v=8"></script>
+    <link rel="stylesheet" href="./assets/css/ai-setup-local.css?v=1">
+    <script type="module" src="./assets/js/ai-setup-local.js?v=2"></script>
+  <style>
+    /* Theme toggle button — hidden until placed in the app header by the placement script */
+    #btn-theme-etl {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: none;
+      border-radius: var(--border-radius-sm);
+      background: transparent;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+      flex-shrink: 0;
+    }
+    #btn-theme-etl:hover {
+      background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+      color: var(--color-accent);
+    }
+    #btn-theme-etl svg { display: block; pointer-events: none; }
+  </style>
+  <style>
+    /* ETL app full-screen layout override
+       The Vite bundle sizes .app-shell to 100vh, but the shared root stylesheet
+       wraps the React mount in a flex <main> with a footer below it. This override
+       makes the shell fill the <main> area instead of the viewport so the footer
+       stays visible and nothing is clipped. Structural sizing only — no tokens. */
+    html, body { height: 100%; }
+    body { overflow: hidden; display: flex; flex-direction: column; }
+    #main {
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 0;
+      gap: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    #root {
+      flex: 1 1 0;
+      min-height: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+    #root > .app-shell {
+      height: 100% !important;
+      min-height: 0;
+    }
+    footer { flex-shrink: 0; }
+  </style>
+  <link rel="manifest" href="./manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="./assets/js/registerSW.js"></script></head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <button id="btn-theme-etl" title="Switch to dark mode" aria-label="Switch to dark mode">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <main id="main"><h1 class="visually-hidden">ETL Studio — Free Browser-Based Data Preparation Tool</h1><div id="root"></div></main>
+    <script>
+    // Theme toggle for ETL app header
+    (function() {
+      var toggle = document.getElementById('btn-theme-etl');
+      if (toggle) {
+        var icon = toggle.querySelector('svg');
+        var html = document.documentElement;
+        function updateToggle(theme) {
+          var isDark = theme === 'dark';
+          toggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+          toggle.setAttribute('title', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+          if (icon) {
+            icon.innerHTML = isDark
+              ? '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'
+              : '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+          }
+        }
+        updateToggle(html.getAttribute('data-theme') || 'light');
+        toggle.addEventListener('click', function() {
+          var current = html.getAttribute('data-theme') || 'light';
+          var next = current === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          updateToggle(next);
+        });
+      }
+    })();
+    </script>
+    <script>
+    // Place the theme toggle button in the app header between AI and "..." buttons
+    (function() {
+      var btn = document.getElementById('btn-theme-etl');
+      if (!btn) return;
+      var placed = false;
+      function place() {
+        if (placed) return;
+        var header = document.querySelector('.app-header');
+        if (!header) { setTimeout(place, 200); return; }
+        var stepsBtn = header.querySelector('button[title="Toggle Steps"]');
+        if (!stepsBtn) { setTimeout(place, 200); return; }
+        header.insertBefore(btn, stepsBtn);
+        btn.style.display = 'inline-flex';
+        placed = true;
+      }
+      // Try immediately and on mutation (app may re-render)
+      place();
+      var observer = new MutationObserver(function() {
+        if (!placed || !document.body.contains(btn)) {
+          placed = false;
+          place();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    })();
+    </script>
+  </body>
+</html>

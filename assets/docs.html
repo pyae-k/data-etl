@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETL Studio — Documentation</title>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --border: #334155;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --radius: 6px;
+      --font-mono: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 0;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    h2 { font-size: 20px; margin-top: 32px; margin-bottom: 12px; color: var(--accent); }
+    h3 { font-size: 16px; margin-top: 24px; margin-bottom: 8px; }
+    p { margin-bottom: 12px; color: var(--text-secondary); }
+    code {
+      font-family: var(--font-mono);
+      background: var(--bg-secondary);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+    }
+    pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    ul, ol { margin-bottom: 12px; padding-left: 20px; color: var(--text-secondary); }
+    li { margin-bottom: 4px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .header {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-secondary);
+    }
+    .header h1 { font-size: 18px; margin: 0; }
+    .header a {
+      font-size: 13px;
+      padding: 6px 14px;
+      background: var(--accent);
+      color: white;
+      border-radius: var(--radius);
+      text-decoration: none;
+    }
+    .header a:hover { background: var(--accent-hover); }
+    .header .nav-link {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .header .nav-link:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .tag-blue { background: rgba(59,130,246,0.2); color: #60a5fa; }
+    .tag-green { background: rgba(34,197,94,0.2); color: #4ade80; }
+    .tag-yellow { background: rgba(245,158,11,0.2); color: #fbbf24; }
+    .tag-red { background: rgba(239,68,68,0.2); color: #f87171; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    th { color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { color: var(--text-secondary); }
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding-top: 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📘 ETL Studio — Documentation</h1>
+    <a href="README.html" class="nav-link">📖 README</a>
+    <a href=".">← Back to App</a>
+  </div>
+  <div class="container">
+
+    <h2>Overview</h2>
+    <p>
+      ETL Studio is a browser-based ETL (Extract, Transform, Load) designer that runs entirely in your browser
+      using DuckDB-WASM. Build data pipelines with a visual step editor, preview results in real-time,
+      and export to multiple formats — no server required.
+    </p>
+
+    <h2>Architecture</h2>
+    <p>
+      The application follows a pipeline architecture where each step transforms data and passes it to the next step.
+      Steps are compiled into a DuckDB SQL query using Common Table Expressions (CTEs):
+    </p>
+    <pre>WITH
+  step_01 AS (SELECT * FROM source),
+  step_02 AS (SELECT * FROM step_01 WHERE condition),
+  step_03 AS (SELECT col, COUNT(*) FROM step_02 GROUP BY col)
+SELECT * FROM step_03</pre>
+
+    <h3>Key Components</h3>
+    <table>
+      <tr><th>Component</th><th>Description</th></tr>
+      <tr><td>Step Definitions</td><td>Pure functions that convert a step's config into DuckDB SQL</td></tr>
+      <tr><td>CTE Builder</td><td>Chains enabled steps into a single CTE-based SQL query</td></tr>
+      <tr><td>SQL Executor</td><td>Runs queries against DuckDB-WASM and returns results</td></tr>
+      <tr><td>Preview System</td><td>Auto-executes the pipeline on changes with debounced updates</td></tr>
+      <tr><td>State Management</td><td>Zustand stores for queries, steps, connections, UI state</td></tr>
+      <tr><td>File Persistence</td><td>File System Access API + IndexedDB for project files</td></tr>
+    </table>
+
+    <h2>Step Categories</h2>
+    <table>
+      <tr><th>Category</th><th>Steps</th><th>Description</th></tr>
+      <tr>
+        <td><span class="tag tag-blue">Get Data</span></td>
+        <td>Source File, Source Table</td>
+        <td>Load data from files or database tables</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-green">Columns</span></td>
+        <td>Set Names, Pick Columns, Change Type, Duplicate</td>
+        <td>Manipulate column structure and types</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-yellow">Rows</span></td>
+        <td>Filter, Sort, Remove Duplicates, Fill Null</td>
+        <td>Filter and organize rows</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">Values</span></td>
+        <td>Replace Values, Remove Errors, Fix Errors</td>
+        <td>Clean and transform cell values</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-blue">Transform</span></td>
+        <td>Add Index, Formula, Pivot, Unpivot, Clean Text</td>
+        <td>Advanced data transformations</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-green">Combine</span></td>
+        <td>Append Tables, Join Tables</td>
+        <td>Merge data from multiple sources</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-yellow">Aggregate</span></td>
+        <td>Group & Aggregate</td>
+        <td>Summarize and group data</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">Advanced</span></td>
+        <td>Custom SQL</td>
+        <td>Write hand-crafted SQL with AI assistance</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-blue">Output</span></td>
+        <td>Export to File</td>
+        <td>Export results to CSV, Parquet, Excel, JSON, JSONL</td>
+      </tr>
+    </table>
+
+    <h2>AI Integration</h2>
+    <p>
+      ETL Studio supports multiple AI providers for natural language to SQL generation:
+    </p>
+    <ul>
+      <li><strong>Ollama</strong> — Local inference with models like Gemma, Llama, Mistral</li>
+      <li><strong>Claude</strong> — Anthropic's Claude API</li>
+      <li><strong>OpenAI</strong> — GPT-4o, GPT-4o-mini, and more</li>
+      <li><strong>Gemini</strong> — Google's Gemini models</li>
+      <li><strong>Groq</strong> — Fast inference with Llama, Mixtral, Gemma</li>
+      <li><strong>OpenRouter</strong> — Unified API for 200+ models</li>
+    </ul>
+    <p>
+      AI settings are configured in the AI panel (click the "AI" button in the header).
+      API keys are stored in your browser's localStorage and never sent to our servers.
+    </p>
+
+    <h2>Export Formats</h2>
+    <table>
+      <tr><th>Format</th><th>Extension</th><th>Use Case</th></tr>
+      <tr><td>CSV</td><td>.csv</td><td>Universal spreadsheet format</td></tr>
+      <tr><td>Parquet</td><td>.parquet</td><td>Columnar storage, efficient for large data</td></tr>
+      <tr><td>Excel</td><td>.xlsx</td><td>Microsoft Excel workbooks</td></tr>
+      <tr><td>JSON</td><td>.json</td><td>Full result as a JSON array</td></tr>
+      <tr><td>JSONL</td><td>.jsonl</td><td>One JSON object per line, streaming-friendly</td></tr>
+    </table>
+
+    <h2>Data Flow</h2>
+    <ol>
+      <li><strong>Create a query</strong> — Click "+" in the left panel</li>
+      <li><strong>Add data source</strong> — Use "Get Data" step to load a file or table</li>
+      <li><strong>Add transform steps</strong> — Filter, clean, aggregate, pivot, etc.</li>
+      <li><strong>Preview results</strong> — Each step shows its output in the center panel</li>
+      <li><strong>Export</strong> — Add an "Export to File" step or use the Run All button</li>
+    </ol>
+
+    <h2>Technical Details</h2>
+
+    <h3>DuckDB-WASM</h3>
+    <p>
+      The app uses DuckDB's WebAssembly build to run SQL queries entirely in the browser.
+      DuckDB is an in-process SQL OLAP database that excels at analytical queries on large datasets.
+      The WASM build runs at near-native speed using WebAssembly SIMD instructions.
+    </p>
+
+    <h3>CTE Pipeline</h3>
+    <p>
+      Each enabled step becomes a CTE (Common Table Expression) in a single SQL query.
+      The CTE builder chains them together, resolving <code>prev</code> references to the
+      prior step's CTE name. Cross-query references (e.g., <code>FROM other_query</code>)
+      are resolved by inlining the referenced query's compiled SQL as a subquery.
+    </p>
+
+    <h3>State Management</h3>
+    <p>
+      Zustand stores manage all application state. The project file (etlstudio.json) is
+      serialized/deserialized via the File System Access API and persisted to the user's
+      local file system. Auto-save triggers 800ms after the last change.
+    </p>
+
+    <h3>File System Access API</h3>
+    <p>
+      The app uses the File System Access API (Chromium browsers) to read and write project
+      files directly to the user's file system. Folder connections use the same API to
+      register directory handles, enabling DuckDB to query files in linked folders.
+    </p>
+
+    <div class="footer">
+      <p>ETL Studio — Built with DuckDB-WASM + React + TypeScript</p>
+      <p>Contact: <a href="mailto:hello@pyaek.com">hello@pyaek.com</a></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+/* ==================================================================
+   Table Layout — content-aware fixed-width preview tables for ETL Studio.
+   Scoped resize grips, active-cell ring, NULL-cell tint, and pin menu.
+   Uses root design tokens from assets/css/base.css.
+
+   Column widths and sticky offsets are generated into a scoped <style>
+   element by table-layout.js (etl-layout-cols-{preview|diff}) so they
+   survive React re-renders. This file only holds the static affordances
+   that can't be generated: the ::after grip, focus rings, and the menu.
+   ================================================================== */
+
+/* --- Resize-grip anchor ----------------------------------------------
+   Base rule gives every header cell a positioned context for the
+   ::after grip. Sticky offsets are applied by the generated scoped style. */
+.tbl-layout thead th { position: relative; }
+
+/* --- Resize grip (::after) ------------------------------------------
+   A 5px hit zone at the right edge of each header cell. Pure CSS so it
+   survives React re-renders; the drag logic is a delegated pointerdown
+   listener on the table (see table-layout.js). */
+.tbl-layout thead th::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  right: 0;
+  width: 5px;
+  cursor: col-resize;
+  touch-action: none;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 150ms ease;
+}
+.tbl-layout thead th:hover::after,
+.tbl-layout thead th:focus-visible::after { background: var(--color-accent); }
+
+/* Header focus ring — enables keyboard resize (ArrowLeft/Right/Home/End) */
+.tbl-layout thead th:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+
+@media (pointer: coarse) {
+  .tbl-layout thead th::after { width: 14px; } /* touch-friendly hit area */
+}
+
+/* --- Active cell (keyboard navigation) ------------------------------ */
+.tbl-layout tbody td.cell-active {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+/* Table focus ring — the table itself is focusable (role="grid") */
+.tbl-layout:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* --- NULL-cell tint --------------------------------------------------
+   The bundle renders NULL values as an italic muted span; give those
+   cells a subtle tint so empty-ish values read as distinct from real
+   text. Selector depends on the bundle's inline style string — if the
+   bundle changes, this rule silently stops matching (no breakage). */
+.tbl-layout tbody td:has(span[style*="italic"]) {
+  background: color-mix(in srgb, var(--color-text-secondary) 6%, transparent);
+}
+
+/* --- While dragging -------------------------------------------------- */
+body.col-resizing,
+body.col-resizing * { cursor: col-resize !important; }
+body.col-resizing { user-select: none; }
+
+/* --- Pin menu --------------------------------------------------------- */
+.etl-pin-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 180px;
+  padding: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+}
+.etl-pin-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+.etl-pin-menu button:hover,
+.etl-pin-menu button:focus-visible {
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  color: var(--color-accent);
+  outline: none;
+}
+
+/* --- Reduced motion --------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .tbl-layout thead th::after { transition: none; }
+  .etl-pin-menu button { transition: none; }
+}

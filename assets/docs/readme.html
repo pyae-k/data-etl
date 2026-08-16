@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ETL Studio README — free browser-based ETL tool powered by DuckDB-WASM. Features, tech stack, getting started guide, and project structure." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://pyaek.com/data/README/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://pyaek.com/data/README/" />
+  <meta property="og:title" content="ETL Studio — README" />
+  <meta property="og:description" content="Browser-based ETL designer with DuckDB-WASM. Build data pipelines visually, preview in real-time, export to CSV, Parquet, Excel, JSON." />
+  <meta property="og:site_name" content="Pyae Phyo Kyaw" />
+  <title>ETL Studio — README | Pyae Phyo Kyaw</title>
+  <link rel="icon" href="../../assets/icons/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png" />
+  <script>
+  (function() {
+    document.documentElement.setAttribute("data-theme", "light");
+  })();
+</script>
+  <link rel="stylesheet" href="../../assets/css/root/style.css">
+<style>
+    :root {
+      --code-bg: #f5f5f7;
+    }
+    [data-theme="dark"] {
+      --code-bg: #2A2A2A;
+    }
+    body { font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); padding: 24px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+    h1, h2, h3 { color: var(--color-text); margin: 24px 0 12px; }
+    h1 { font-size: var(--text-2xl); }
+    h2 { font-size: var(--text-xl); }
+    h3 { font-size: var(--text-lg); }
+    p { margin: 12px 0; color: var(--color-text); }
+    code { background: var(--code-bg); padding: 2px 6px; border-radius: var(--border-radius-sm); font-family: var(--font-mono); font-size: var(--text-sm); }
+    pre { background: var(--code-bg); padding: 16px; border-radius: var(--border-radius-md); overflow-x: auto; }
+    pre code { background: none; padding: 0; }
+    a { color: var(--color-accent); }
+    a:hover { color: var(--color-accent-hover); }
+    ul, ol { padding-left: 24px; margin: 12px 0; }
+    li { margin: 4px 0; }
+    hr { border: none; border-top: 1px solid var(--color-border); margin: 24px 0; }
+    blockquote { border-left: 3px solid var(--color-accent); padding-left: 16px; margin: 12px 0; color: var(--color-text-secondary); }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid var(--color-border); padding: 8px 12px; text-align: left; }
+    th { background: var(--color-surface); font-weight: 600; }
+    img { max-width: 100%; border-radius: var(--border-radius-md); }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>📖 ETL Studio — README</h1>
+    <a class="nav-link">📘 Docs</a>
+    <a>← Back to App</a>
+  </div>
+  <div class="container">
+
+    <h1>ETL Studio</h1>
+    <p>
+      A browser-based ETL (Extract, Transform, Load) designer powered by
+      <a href="https://duckdb.org/docs/api/wasm/overview" target="_blank">DuckDB-WASM</a>.
+      Build data pipelines visually with a step-based editor, preview results in real-time,
+      and export to CSV, Parquet, Excel, JSON, or JSONL — all in your browser, no server required.
+    </p>
+    <p>
+      <span class="badge">Live demo → <a href="https://pyaek.com/apps/etl" style="color: inherit; text-decoration: underline;">pyaek.com/etl</a></span>
+    </p>
+
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>🧩 Step-Based Pipeline Editor</h3>
+        <p>Build ETL workflows by adding, configuring, and reordering steps visually.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔧 30+ Transform Steps</h3>
+        <p>Filter, sort, aggregate, pivot, join, change types, formula columns, and more.</p>
+      </div>
+      <div class="feature-card">
+        <h3>👁️ Live Preview</h3>
+        <p>See results instantly as you build your pipeline — no manual refresh needed.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📝 SQL Editor</h3>
+        <p>Write custom SQL with syntax highlighting and AI assistance.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🤖 AI-Powered Generation</h3>
+        <p>Describe what you want in natural language and let AI write the SQL.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔌 Multiple AI Providers</h3>
+        <p>Ollama (local), Claude, OpenAI, Gemini, Groq, OpenRouter.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📦 Export</h3>
+        <p>Download results as CSV, Parquet, Excel, JSON, or JSONL.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔗 Connections</h3>
+        <p>Link local folders or connect to databases (PostgreSQL, MySQL, SQLite, etc.).</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔀 Cross-Query References</h3>
+        <p>One query can reference another's output for complex workflows.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📲 PWA</h3>
+        <p>Install as a desktop app, works offline after initial load.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🌙 Dark Theme</h3>
+        <p>Easy on the eyes, built for extended use.</p>
+      </div>
+    </div>
+
+    <h2>Tech Stack</h2>
+    <table>
+      <tr><th>Layer</th><th>Technology</th></tr>
+      <tr><td><strong>Framework</strong></td><td>React 18 + TypeScript</td></tr>
+      <tr><td><strong>Bundler</strong></td><td>Vite 6</td></tr>
+      <tr><td><strong>Database</strong></td><td>DuckDB-WASM (in-browser)</td></tr>
+      <tr><td><strong>State</strong></td><td>Zustand 5</td></tr>
+      <tr><td><strong>Persistence</strong></td><td>File System Access API + IndexedDB</td></tr>
+      <tr><td><strong>UI</strong></td><td>Hand-built with CSS custom properties</td></tr>
+      <tr><td><strong>AI</strong></td><td>Ollama, Claude, OpenAI, Gemini, Groq, OpenRouter</td></tr>
+      <tr><td><strong>PWA</strong></td><td>vite-plugin-pwa (Workbox)</td></tr>
+    </table>
+
+    <h2>Getting Started</h2>
+
+    <h3>Prerequisites</h3>
+    <ul>
+      <li>Node.js 18+</li>
+      <li>npm 9+</li>
+    </ul>
+
+    <h3>Development</h3>
+    <pre># Install dependencies
+npm install
+
+# Start dev server
+npm run dev</pre>
+    <p>The app runs at <code>http://localhost:5173</code> (or the next available port).</p>
+
+    <h3>Build</h3>
+    <pre>npm run build</pre>
+    <p>Output goes to <code>dist/</code>. Serve with any static file server.</p>
+
+    <h3>AI Setup (Optional)</h3>
+    <ol>
+      <li><strong>Ollama (local):</strong> Install <a href="https://ollama.com" target="_blank">Ollama</a>, pull a model (<code>ollama pull gemma3:4b</code>), start with <code>OLLAMA_ORIGINS=* ollama serve</code></li>
+      <li><strong>Cloud providers:</strong> Get API keys from Anthropic, OpenAI, Google AI Studio, Groq, or OpenRouter, then configure in the AI panel</li>
+    </ol>
+
+    <h2>Project Structure</h2>
+    <pre>src/
+  main.tsx                    # App entry point
+  App.tsx                     # Root component (layout + modals)
+  components/
+    layout/                   # App shell (Header, LeftPanel, CenterPanel, etc.)
+    steps/                    # Step config dialogs
+    modals/                   # Modal overlays (AI, Connections, etc.)
+    icons/                    # SVG icon components
+  steps/                      # Step definitions (buildSql per kind)
+  engine/                     # CTE builder, SQL executor, references
+  store/                      # Zustand stores
+  lib/                        # Utilities (DuckDB, AI, export, file access)
+  types/                      # TypeScript type definitions
+  styles/                     # CSS (theme + layout)</pre>
+
+    <h2>Contact</h2>
+    <p>
+      <strong>Email:</strong> <a href="mailto:hello@pyaek.com">hello@pyaek.com</a>
+    </p>
+
+    <h2>License</h2>
+    <p>MIT</p>
+
+    <div class="footer">
+      <p>ETL Studio — Built with DuckDB-WASM + React + TypeScript</p>
+      <p>Contact: <a href="mailto:hello@pyaek.com">hello@pyaek.com</a></p>
+    </div>
+  </div>
+</body>
+</html>

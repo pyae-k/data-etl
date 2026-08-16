@@ -1,0 +1,19 @@
+{
+  "name": "ETL Studio",
+  "short_name": "ETL Studio",
+  "description": "ETL Studio — free, browser-based ETL tool for data cleaning and transformation. Powered by DuckDB WASM. 100% private.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "any",
+  "id": "./",
+  "lang": "en",
+  "categories": ["productivity", "utilities", "developer-tools"],
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
